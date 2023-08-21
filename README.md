@@ -5,7 +5,7 @@ https://dokosen.pages.dev/
 ## 使用技術
 |  種類 |  名前  | 備考 |
 | ---- | ---- | ---- |
-| 言語 | TypeScript | JavaScriptを許さない会 |
+| 言語 | TypeScript | JavaScript被害者の会 |
 | UI | React |  |
 | ビルドツール | Vite |  |
 | コンポーネントライブラリ | Chakra UI |  |
