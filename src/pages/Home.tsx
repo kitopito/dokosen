@@ -11,6 +11,8 @@ import { BallTriangle } from 'react-loader-spinner';
 function Home() {
 //  let data = useDat{aBase((state) => state.data);
   const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  console.log("screenWidth is " + screenWidth.toString());
   const spinnerSize = 100;
 
   let searchResult = useDataBase((state) => state.searchResult);
@@ -35,11 +37,11 @@ function Home() {
       />
       </VStack></Container>
 
-    : <Container maxW='full' centerContent>
+    : <Container width={"100%"} centerContent boxSizing='border-box' paddingX={5}>
       <VStack>
         <Box p={5}><Heading>どこいる先生</Heading></Box>
 
-        <InputGroup minWidth={"500px"}>
+        <InputGroup>
           <InputLeftElement pointerEvents='none'>
             <SearchIcon color='gray.300' />
           </InputLeftElement>
@@ -51,23 +53,31 @@ function Home() {
         {searchResult.length == 0
         ? <Text>検索結果がありません</Text>
         : searchResult.map((item) =>
-          <>
-          <Link to={"detail"} state={item}>
-          <Card minWidth={"500px"}>
-          <Box p={5}>
+          <><Link to={"detail"} state={item} style={{display: 'inline-block', width: "100%"}}>
+            <Box p={5} width={{ base: "100%", md: "500px" }} borderWidth='1px' borderRadius='lg' overflow='hidden' boxSizing='border-box'>
               <Heading size={"md"}>
                   <Text>{item.TeachersName}先生</Text>
               </Heading>
               <Text>{item.status}</Text>
-          </Box>
-          </Card>
-          </Link>
-          </>
+            </Box>
+          </Link></>
         )}
       </VStack>
     </Container>
 
   )
 }
+/*
+          <Card minWidth={{ base: screenWidth, md: "500px" }} maxWidth={{ base: screenWidth, md: "500px" }} boxSizing='border-box'>
+          <CardBody>
+          <Box p={5}>
+              <Heading size={"md"}>
+                  <Text>{item.TeachersName}先生</Text>
+              </Heading>
+              <Text>{item.status}</Text>
+          </Box>
+          </CardBody>
+          </Card>
+*/
 
 export default Home
