@@ -1,8 +1,10 @@
 import { create } from 'zustand'
-import { TeacherInfo, TeacherInfo_supabase } from './data/TeacherInfo.ts'
+import { TeacherInfo, TeacherInfo_firebase, TeacherInfo_supabase } from './data/TeacherInfo.ts'
 import { supabase } from '../supabase.ts';
 import { DataBase } from './DataBase.ts'
 import { SearchModelImpl } from '../interface/Search.ts';
+import { collection, getDocs } from 'firebase/firestore/lite';
+import { firebaseDB } from '../firebase.ts';
 
 export const useTestDataBase = create<DataBase>()((set) => ({
   isLoading: false,
@@ -27,7 +29,41 @@ export const useSupaBase = create<DataBase>()((set) => ({
       .data as Array<TeacherInfo_supabase>;
 
     console.log('hoge');
-    const transformedData = fetchedData.map((item) => toTeacherInfo(item));
+    const transformedData = fetchedData.map((item) => toTeacherInfoS(item));
+
+    set((state) => ({ data: transformedData }));
+    set((state) => ({ searchResult: state.data}));
+    set((state) => ({ isLoading: false }));
+  },
+  searchModel: new SearchModelImpl(),
+  searchResult: [],
+  search: async (keywordInput: string) => {
+    set((state) => ({ isLoading: true }));
+    set((state) => {
+      state.searchModel.search(keywordInput, state.data);
+      return { searchResult: state.searchModel.searchResult };
+    });
+    set((state) => ({ isLoading: false }));
+  },
+}))
+
+export const useFirebase = create<DataBase>()((set) => ({
+  isLoading: false,
+  data: [],
+  fetchData: async () => {
+    set((state) => {
+      console.log(state.isLoading);
+      return { isLoading: true };
+    });
+
+    const citiesCol = collection(firebaseDB, 'teachers');
+    
+    const fetchedData = (await getDocs(citiesCol))
+      .docs.map(doc => doc.data()) as Array<TeacherInfo_firebase>;
+
+    console.log(fetchedData);
+    console.log('firebase');
+    const transformedData = fetchedData.map((item) => toTeacherInfoF(item));
 
     set((state) => ({ data: transformedData }));
     set((state) => ({ searchResult: state.data}));
@@ -45,7 +81,7 @@ export const useSupaBase = create<DataBase>()((set) => ({
   },
 }))
   
-function toTeacherInfo(data: TeacherInfo_supabase): TeacherInfo {
+function toTeacherInfoS(data: TeacherInfo_supabase): TeacherInfo {
   const teacher_info: TeacherInfo = new TeacherInfo(
     data.id,
     data.status,
@@ -53,7 +89,15 @@ function toTeacherInfo(data: TeacherInfo_supabase): TeacherInfo {
   );
   return teacher_info;
 }
-
+  
+function toTeacherInfoF(data: TeacherInfo_firebase): TeacherInfo {
+  const teacher_info: TeacherInfo = new TeacherInfo(
+    data.id,
+    data.status,
+    data.name,
+  );
+  return teacher_info;
+}
 
 
 const testData: Array<TeacherInfo> = [

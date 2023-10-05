@@ -23,3 +23,9 @@ export interface TeacherInfo_supabase {
     status: string;
     teachers_name: string;
 }
+
+export interface TeacherInfo_firebase {
+    id: number;
+    name: string;
+    status: string;
+}

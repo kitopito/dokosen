@@ -1,5 +1,5 @@
 import { SearchModelImpl } from '../interface/Search.ts';
-import { useSupaBase } from './DataBaseImpl.ts';
+import { useFirebase, useSupaBase } from './DataBaseImpl.ts';
 import { TeacherInfo } from './data/TeacherInfo.ts'
 
 export interface DataBase {
@@ -12,4 +12,4 @@ export interface DataBase {
     search: (keywordInput: string) => void;
 }
 
-export const useDataBase = useSupaBase;;
+export const useDataBase = useFirebase;

@@ -6,6 +6,8 @@ import { TeacherInfo } from '../state/data/TeacherInfo';
 import { useDataBase } from '../state/DataBase';
 import { SearchIcon } from '@chakra-ui/icons';
 import { BallTriangle } from 'react-loader-spinner';
+import { firebaseDB } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore/lite';
 
 
 function Home() {
@@ -20,7 +22,13 @@ function Home() {
   const search = useDataBase((state) => state.search)
   let isLoding = useDataBase((state) => state.isLoading);
 
-  useEffect(() => {fetchData();}, []);
+  useEffect(() => {
+    /*
+    const col = collection(firebaseDB, "teachers");
+    await getDocs(col)
+    */
+    fetchData();
+  }, []);
 
   return (
     isLoding
