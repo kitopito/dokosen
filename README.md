@@ -11,7 +11,7 @@ https://dokosen.pages.dev/
 | コンポーネントライブラリ | Chakra UI |  |
 | ルーティング | React Router (v6) | バージョンによって動作が大きく変わるので注意 |
 | 状態管理 | Zustand | 軽量なのがいいと思った |
-| データベース | Supabase |  |
+| データベース | Firebase |  |
 | ホスティング | Cloudflare | 無料のやつで一番いいと思った |
 <!-- 追加用
 |  |  |  |
