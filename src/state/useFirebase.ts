@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { DataBase } from "./DataBase";
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs, onSnapshot, query } from 'firebase/firestore';
 import { firebaseDB } from "../firebase";
 import { TeacherInfo, TeacherInfo_firebase } from "./data/TeacherInfo";
 import { SearchModelImpl } from "../interface/Search";
@@ -15,9 +15,18 @@ export const useFirebase = create<DataBase>()((set) => ({
       return { isLoading: true };
     });
 
-    const citiesCol = collection(firebaseDB, 'teachers');
+    const teachersCol = collection(firebaseDB, 'teachers');
+		onSnapshot(teachersCol, (snapshot) => {
+			console.log("onSnapshot");
+			const fetchedData = snapshot
+				.docs.map((doc) => doc.data()) as Array<TeacherInfo_firebase>;
+			const transformedData = fetchedData.map((item) => toTeacherInfoF(item));
+			console.log(transformedData);
+			set((state) => ({ data: transformedData }));
+			set((state) => ({ searchResult: state.data}));
+    });
     
-    const fetchedData = (await getDocs(citiesCol))
+    const fetchedData = (await getDocs(teachersCol))
       .docs.map(doc => doc.data()) as Array<TeacherInfo_firebase>;
 
     console.log(fetchedData);
