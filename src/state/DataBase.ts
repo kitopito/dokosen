@@ -1,6 +1,7 @@
 import { SearchModelImpl } from '../interface/Search.ts';
-import { useFirebase, useSupaBase } from './DataBaseImpl.ts';
+import { useSupaBase } from './DataBaseImpl.ts';
 import { TeacherInfo } from './data/TeacherInfo.ts'
+import { useFirebase } from './useFirebase.ts';
 
 export interface DataBase {
     isLoading: boolean;
