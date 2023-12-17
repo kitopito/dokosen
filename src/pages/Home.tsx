@@ -6,7 +6,6 @@ import { TeacherInfo } from '../state/data/TeacherInfo';
 import { useDataBase } from '../state/DataBase';
 import { SearchIcon } from '@chakra-ui/icons';
 import { BallTriangle } from 'react-loader-spinner';
-import { firebaseDB } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore/lite';
 
 
