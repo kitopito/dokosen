@@ -29,3 +29,10 @@ export interface TeacherInfo_firebase {
     name: string;
     status: string;
 }
+
+export interface TeacherInfo_d1 {
+    id: number;
+    name: string;
+    status: string;
+    updatedAt: number;
+}
