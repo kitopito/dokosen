@@ -16,6 +16,7 @@ export class SearchModelImpl<T extends Searchable> {
     get searchResult() {return this._searchResult;};
 
     search(keywordInput: string, searchData: Array<T>): void {
+        this.keywordInput = keywordInput;
         const kewwordList = this.toWordList(keywordInput);
 
         const keywordExists = 
@@ -36,7 +37,12 @@ export class SearchModelImpl<T extends Searchable> {
         });
         this._searchResult = filteredResults;
     }
-    
+
+    searchWithPreviousKeyword(searchData: Array<T>): Array<T> {
+        this.search(this.keywordInput, searchData);
+        return this._searchResult;
+    }
+
     private toWordList(keywordInput: string): Array<string> {
         const wordList = keywordInput.replace(/[ 　]+/g, ' ').trim().split(' ');
         this.kewwordList = wordList;
