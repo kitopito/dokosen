@@ -50,9 +50,9 @@ function Home() {
 
         <InputGroup>
           <InputLeftElement pointerEvents='none'>
-            <SearchIcon color='gray.300' />
+            <SearchIcon color="#4fa94d"/*'gray.300'*/ />
           </InputLeftElement>
-          <Input placeholder='検索' 
+          <Input placeholder='検索' color={"#4fa94d"}
             onChange={(event) => search(event.target.value)}
           />
         </InputGroup>
@@ -61,7 +61,7 @@ function Home() {
         ? <Text>検索結果がありません</Text>
         : searchResult.map((item) =>
           <><Link to={"detail"} state={item} style={{display: 'inline-block', width: "100%"}}>
-            <Box p={5} width={{ base: "100%", md: "500px" }} borderWidth='1px' borderRadius='lg' overflow='hidden' boxSizing='border-box'>
+            <Box p={5} width={{ base: "100%", md: "500px" }} borderWidth='1px' borderRadius='lg' overflow='hidden' boxSizing='border-box' borderColor={"#4fa94d"}>
               <Heading size={"md"}>
                   <Text>{item.TeachersName}先生</Text>
               </Heading>
