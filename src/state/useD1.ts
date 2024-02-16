@@ -28,7 +28,7 @@ export const useD1 = create<DataBase>()((set) => ({
 			set((state) => ({
         searchResult: state.searchModel.searchWithPreviousKeyword(transformedData)
       }));
-    }, 3000);
+    }, 10000);
     
     const fetchedData = await res.json() as Array<TeacherInfo_d1>;
     console.log(fetchedData);
