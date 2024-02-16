@@ -61,7 +61,7 @@ function Home() {
         ? <Text>検索結果がありません</Text>
         : searchResult.map((item) =>
           <><Link to={"detail"} state={item} style={{display: 'inline-block', width: "100%"}}>
-            <Box p={5} width={{ base: "100%", md: "500px" }} borderWidth='1px' borderRadius='lg' overflow='hidden' boxSizing='border-box' borderColor={"#4fa94d"}>
+            <Box p={5} width={{ base: "100%", md: "500px" }} borderWidth='2px' borderRadius='lg' overflow='hidden' boxSizing='border-box' borderColor={"#4fa94d"}>
               <Heading size={"md"}>
                   <Text>{item.TeachersName}先生</Text>
               </Heading>
